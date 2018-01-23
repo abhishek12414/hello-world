@@ -7,7 +7,7 @@ import { AuthorsService } from './authors.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { GithubFollowersService } from './github-followers.service';
+import { GithubFollowersService } from './services/github-followers.service';
 
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses.component';
@@ -25,9 +25,13 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { PostComponent } from './post/post.component';
 import { GithubFollowersComponent } from './github-followers/github-followers.component';
-
+import { GithubProfileComponent } from './github-profile/github-profile.component';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RouterModule } from '@angular/router';
+import { PostsComponent } from './posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -47,14 +51,40 @@ import { GithubFollowersComponent } from './github-followers/github-followers.co
     NewCourseFormComponent,
     SignupFormComponent,
     ChangePasswordComponent,
-    PostComponent,
     GithubFollowersComponent,
+    GithubProfileComponent,
+    HomeComponent,
+    NavbarComponent,
+    NotFoundComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot([
+      { 
+        path: '',
+        component: HomeComponent
+      },
+      { 
+        path: 'followers/:id/:username',
+        component: GithubProfileComponent
+      },
+      { 
+        path: 'followers',
+        component: GithubFollowersComponent
+      },
+      { 
+        path: 'posts',
+        component: PostsComponent
+      },
+      { 
+        path: '**',
+        component: NotFoundComponent
+      }
+    ])
   ],
   providers: [
     PostService,
